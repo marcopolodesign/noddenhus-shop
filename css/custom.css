@@ -1,0 +1,134 @@
+:root {
+  --grey: #707070;
+  --lightGrey: #ccc;
+  --mainDarkColor: #31452e;
+  --lightColor: #e1e0c1;
+  --mainFont: 'Wulkan Display', Georgia, serif;
+  --bodyFont: 'MessinaSansWeb', Helvetica, sans-serif;
+  --ctaFont: 'Chanel 600', Helvetica, sans-serif;
+}
+
+body {
+  font-size: 16px;
+  transition: background-color 0.6s ease;
+}
+
+.bg-main-dark {
+  background-color: var(--mainDarkColor);
+}
+
+.bg-main-light {
+  background-color: var(--lightColor);
+}
+
+.main-font,
+h1,
+h2 {
+  font-family: var(--mainFont);
+  font-weight: normal;
+}
+
+.body-font,
+body {
+  font-family: var(--bodyFont);
+}
+
+.cta-font {
+  font-family: var(--ctaFont);
+}
+
+/* Typography */
+
+h1 {
+  font-weight: normal;
+  font-size: 4.5rem;
+  letter-spacing: -0.035em;
+}
+
+h2 {
+  font-size: 2.25rem;
+  letter-spacing: -0.02em;
+}
+
+p {
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* CTA */
+
+.main-cta {
+  text-transform: uppercase;
+  padding: 23px 51px;
+  font-family: var(--ctaFont);
+  letter-spacing: 0.09em;
+  font-size: 14px;
+}
+
+.main-cta.bg-main-light {
+  color: var(--mainDarkColor);
+}
+
+/* Header Desktop*/
+
+header {
+  z-index: 10;
+}
+
+header nav,
+.header-aob {
+  height: 55px;
+  display: flex;
+}
+
+header nav ul,
+.header-aob > * {
+  margin: auto;
+}
+
+.logo {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+header {
+  transform: none;
+  opacity: 1;
+  transition: all 0.4s ease;
+}
+
+header.scrolled {
+  transform: translateY(-10px);
+  opacity: 0;
+  -webkit-filter: blur(4px);
+  filter: blur(4px);
+}
+
+.header-nav a {
+  color: white;
+}
+
+.header-aob * {
+  color: white;
+}
+
+/* Home Desktop */
+
+.home-products-overlay {
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: all 1s 0.5s ease;
+  height: 50%;
+}
+
+.home-products.in-view .home-products-overlay {
+  transform: scaleY(1);
+}
+
+.home-aob-image {
+  height: 60vh;
+}
+
+.home-ending-image {
+  transform: translateY(-100px);
+}
