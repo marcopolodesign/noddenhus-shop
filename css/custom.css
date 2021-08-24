@@ -267,6 +267,8 @@ body.single .cat-products-container {
   border-bottom: 1px solid black;
   margin-top: 45px;
   align-items: stretch;
+
+  /* changes here */
 }
 
 body.archive header svg path,
