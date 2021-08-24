@@ -130,7 +130,7 @@ div img {
   width: 30px;
   height: 30px;
   opacity: 0.7;
-  background-color: var(--red);
+  background-color: var(--mainDarkColor);
 }
 
 .cursor.is-shop {

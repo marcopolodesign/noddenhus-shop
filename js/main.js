@@ -5,8 +5,11 @@ const windowHeight = window.innerHeight;
 const runScripts = () => {
   pageName = document.querySelector('[data-barba=container]');
 
+
   const postAnimations = () => {
   let posts = document.querySelectorAll('section>div');
+  let products = document.querySelectorAll('.is-product');
+
   
   const observer = new IntersectionObserver(
     (entries) => {
@@ -31,26 +34,99 @@ const runScripts = () => {
     observer.observe(productsGrid);
 
     observer.observe(homeEnding)
+  } 
+
+  if (pageName.classList.contains('shop') || pageName.classList.contains('home') ||  pageName.classList.contains('product')) {
+    products.forEach((product) => {
+      observer.observe(product);
+    });
+
+    // wines.forEach((wine) => {
+    //   observer.observe(wine);
+    // });
   }
+
 };
 
-  const changeBg = () => {
-    let backgroundChange = document.querySelector("div[background-color]");
-    let body = document.querySelector('body')
-    document.addEventListener('scroll', ()=> {
-      const pixels = window.pageYOffset;
-      let newColor = backgroundChange.getAttribute('background-color');
   
-      if (backgroundChange.offsetTop < pixels + windowHeight / 2) {
-        body.classList.add(newColor);
-        console.log('changee')
-      } else {
-        body.classList.remove(newColor);
-        console.log('revert changee')
 
-      }
-    })
+  function allCursor() {
+    let cursor = document.querySelector('.cursor');
+    allAnchors = Array.prototype.slice.call(document.querySelectorAll('a, .anchor'));
+    let extraAnchors = Array.prototype.slice.call(document.querySelectorAll('.anchor'));
+    buttons = Array.prototype.slice.call(document.querySelectorAll('button'));
+
+    anchors = allAnchors.concat(extraAnchors);
+    anchors = allAnchors.concat(buttons);
+
+    let anchorContainer = document.querySelectorAll('.main-cta');
+
+    const changeCursorColor = () => {
+      anchorContainer.forEach((container) => {
+        const color = container.getAttribute('cursor-color');
+
+        if (color === 'red') {
+          cursor.classList.remove('black');
+          cursor.classList.add('red');
+        } else if (color === 'black') {
+          cursor.classList.remove('red');
+          cursor.classList.add('black');
+        }
+      });
+    };
+
+    const growCursor = () => {
+      cursor.classList.add('is-down');
+    };
+
+    const shrinkCursor = () => {
+      cursor.classList.remove('is-down');
+    };
+
+    const hoverCursor = () => {
+      cursor.classList.add('is-hover');
+    };
+
+    const removeHoverCursor = () => {
+      cursor.classList.remove('is-hover');
+    };
+
+    document.addEventListener('mousedown', () => {
+      growCursor();
+    });
+
+    anchors.forEach((anchor) => {
+      anchor.addEventListener('mouseover', () => {
+        hoverCursor();
+      });
+    });
+
+    anchors.forEach((anchor) => {
+      anchor.addEventListener('mouseleave', () => {
+        removeHoverCursor();
+      });
+    });
+
+    document.addEventListener('mouseup', () => {
+      shrinkCursor();
+    });
+
+    const moveCursor = (x, y) => {
+      cursor.style.top = y + 'px';
+      cursor.style.left = x + 'px';
+      changeCursorColor();
+    };
+
+    document.addEventListener('mousemove', (event) => {
+      moveCursor(event.pageX, event.pageY);
+    });
+
+    document.addEventListener('scroll', (event) => {
+      moveCursor(event.pageX, event.pageY);
+    });
   }
+  
+  
 
   const initScripts = () => {
     if (pageName.classList.contains('home')) {
@@ -59,7 +135,77 @@ const runScripts = () => {
 
   initScripts(); 
   postAnimations();
-  changeBg();
+  setTimeout(() => {
+      allCursor();
+  }, 1000);
+}
+
+
+const imageProducts = () => {
+  document.addEventListener('scroll', () => {
+    const topViewPort = window.pageYOffset;
+    const midViewPort = topViewPort + window.innerHeight / 2;
+    let productContainer = document.querySelectorAll('.is-product');
+
+    productContainer.forEach((container) => {
+      const topContainer = container.offsetTop - 2000;
+      const midContainer = topContainer + container.offsetHeight / 2;
+
+      const distanceToContainer = (midViewPort - midContainer) * -1;
+
+      const firstImage = container.querySelector('.image-1');
+      const secondImage = container.querySelector('.image-2');
+
+      if (firstImage) {
+        firstImage.classList.remove('o-0')
+        firstImage.style.transform = `translate(${distanceToContainer / -12}px , ${
+          distanceToContainer / 12
+        }px)`;
+      }
+
+      if (secondImage) {
+        secondImage.classList.remove('o-0')
+
+        secondImage.style.transform = `translate(${distanceToContainer / 12}px , ${
+          distanceToContainer / 12
+        }px)`;
+      }
+    });
+  });
+};
+
+const shopColor = () => {
+  let backgroundChange = Array.prototype.slice.call(document.querySelectorAll(".is-product[background-color]"));
+  let main = document.querySelector('#main')
+  let header = document.querySelector('header')
+
+    document.addEventListener('scroll', () => {
+      const pixels = window.pageYOffset;
+      backgroundChange.forEach((change, i) => {
+
+
+          if ((pixels + windowHeight / 2 > backgroundChange[0].offsetTop) && pixels + windowHeight / 2 < backgroundChange[1].offsetTop) {
+
+            main.style.backgroundColor = backgroundChange[0].getAttribute('background-color');
+            header.style.backgroundColor = backgroundChange[0].getAttribute('background-color');
+
+          }  else if 
+          ((pixels + windowHeight / 2 > backgroundChange[1].offsetTop) && pixels + windowHeight / 2 < backgroundChange[2].offsetTop)
+          {
+            main.style.backgroundColor = backgroundChange[1].getAttribute('background-color');
+            header.style.backgroundColor = backgroundChange[1].getAttribute('background-color');
+
+          } else if (pixels + windowHeight / 2 > backgroundChange[2].offsetTop) {
+            main.style.backgroundColor = backgroundChange[2].getAttribute('background-color');
+            header.style.backgroundColor = backgroundChange[2].getAttribute('background-color');
+          }
+        
+        else {
+          main.style.backgroundColor = '';
+        }
+      }) 
+
+    })
 }
 
 
@@ -86,250 +232,291 @@ const Menu = () => {
 
 Menu();
 
+const blends = () => {
+  let products = document.querySelectorAll('.product');
+    let index = Array.prototype.slice.call(document.querySelectorAll('.product-index'));
 
-barba.init({
-  timeout: 5000,
-  prevent: ({ el }) => el.classList.contains('barba-prevent'),
-  transitions: [
-    {
-      leave({ current, next, trigger }) {
-        let cursor = document.querySelector('.cursor');
-        cursor.classList.remove('is-hover');
-        cursor.classList.remove('is-shop');
-        cursor.classList.remove('add-cart');
-        closeSideCart();
-        closeMenu();
+    index[0].classList.add('active');
+    products[0].classList.add('active');
+    let n;
 
-        return new Promise((resolve) => {
-          const timeline = gsap.timeline({
-            defaults: {
-              ease: Expo.easeOut,
-            },
-            onComplete() {
-              current.container.remove();
-              resolve();
-            },
-          });
-          timeline
-            .call(() => {
-              preLoad[0].classList.add('animate');
-            })
-            .set(preLoad, { x: '100%', opacity: '1' })
-            .to(current.container, { opacity: 0.6, x: '-10%', duration: 2 }, 0)
-            .to(preLoad[0], { x: '0%', ease: Power4.easeOut, duration: 1.5 }, 0);
+    index.forEach((i) => {
+      i.addEventListener('mouseenter', (e) => {
+        n = index.indexOf(e.target);
+        index.forEach((i) => {
+          i.classList.remove('active');
         });
-      },
-      enter({ current, next, trigger }) {
-        return new Promise((resolve) => {
-          window.scrollTo({
-            top: 0,
-          });
-          runScripts();
-          const timeline = gsap.timeline({
-            onComplete() {
-              resolve();
-            },
-            defaults: {
-              duration: 2,
-              ease: Expo.easeOut,
-            },
-          });
 
-          timeline
-            .call(() => {
-              preLoad[0].classList.remove('animate');
-            })
-            .set(next.container, { opacity: 0, x: '10%' })
-            .to(preLoad, { x: '-100%', opacity: 1, duration: 2.3 }, 0)
-            .to(next.container, { opacity: 1, x: '0' }, 0.5);
+        let activeProduct = document.querySelector('.product.active');
+        index[n].classList.add('active');
+
+        productTimeline = gsap.timeline({
+          defaults: {
+            ease: Expo.EaseOut,
+            duration: 0.4,
+          },
         });
-      },
-    },
-    {
-      to: { namespace: ['Cart'] },
-      leave({ current, next, trigger }) {
-        closeMenu();
-        // ACA CUANDO ES AL CART
-        return new Promise((resolve) => {
-          const timeline = gsap.timeline({
-            defaults: {
-              duration: 0.5,
-            },
-            onComplete() {
-              current.container.remove();
-              resolve();
-            },
-          });
-          timeline.to(current.container, { opacity: 0.2 });
-          // .to('header', {opacity: 0.2}, 0)
-          // .to(footer, {display: 'none'}, 0);
+        productTimeline
+          .to(activeProduct, {opacity: 0, y: 60, pointerEvents: 'none'})
+          .to(products[n], {opacity: 1, y: 0, pointerEvents: 'all'});
+
+        products.forEach((p) => {
+          p.classList.remove('active');
         });
-      },
-      enter({ current, next, trigger }) {
-        console.log('entering to cart');
-        let closeCart = document.querySelector('.close-sd');
 
-        cartLink = current.url.path;
-        if (cartLink === '/cart') {
-          closeCart.setAttribute('href', '/shop');
-        } else {
-          closeCart.setAttribute('href', cartLink);
-        }
+        products[n].classList.add('active');
+      });
+    
+    });
+  
+}
 
-        return new Promise((resolve) => {
-          window.scrollTo({
-            top: 0,
-          });
-          runScripts();
-          const timeline = gsap.timeline({
-            onComplete() {
-              resolve();
-            },
-            defaults: {
-              duration: 0.5,
-              ease: Expo.easeOut,
-            },
-          });
 
-          timeline
-            // .set(header, {y: '-100%'})
-            .to(next.container, { opacity: 1, scale: 0.95 });
-        });
-      },
-    },
+let currentImage = 0 ;
 
-    {
-      from: { namespace: ['Cart'] },
-      leave({ current, next, trigger }) {
-        closeMenu();
-        // ACA CUANDO ES AL CART
-        return new Promise((resolve) => {
-          const timeline = gsap.timeline({
-            defaults: {
-              duration: 0.5,
-            },
-            onComplete() {
-              current.container.remove();
-              resolve();
-            },
-          });
-          timeline
-            .set(next.container, { opacity: 0.2 })
-            .to(current.container, { opacity: 0, scale: 1 });
-        });
-      },
-      enter({ current, next, trigger }) {
-        console.log('leaving cart');
+const animateProductImages = () => {
+  let images = document.querySelectorAll('.featured-images>div.featured');
+  let maxImages = images.length - 1;
+  if (currentImage > maxImages) {
+    currentImage = 0;
 
-        return new Promise((resolve) => {
-          window.scrollTo({
-            top: 0,
-          });
-          runScripts();
-          const timeline = gsap.timeline({
-            onComplete() {
-              resolve();
-            },
-            defaults: {
-              duration: 0.5,
-              ease: Expo.easeOut,
-            },
-          });
+    images.forEach((img) => {
+      img.style.width = '';
+    });
+  }
 
-          console.log(current.container);
-          timeline.to(next.container, { opacity: 1 });
-        });
-      },
-    },
-  ],
-  views: [
-    {
-      namespace: 'home',
-      afterEnter(data) {
+  return new Promise((resolve) => {
+    const timeline = gsap.timeline({
+      onComplete() {
+        currentImage++;
+        resolve();
       },
 
-      beforeLeave(data) { },
-    },
+      defaults: {
+        duration: 0.7,
+        ease: Expo.ease,
+      },
+    });
 
-    {
-      namespace: 'artists',
-      afterEnter(data) {
-        artistHover();
-      },
-    },
-    {
-      namespace: 'artist',
-      afterEnter(data) {
-        openBio();
-        filterByLinks();
-      },
+    timeline.to(images[currentImage], {width: '100%'});
+  });
+};
 
-      beforeLeave(data) {
-        // clearInterval(handle);
-        // handle = 0;
-      },
-    },
-    {
-      namespace: 'exhibicion',
-      afterEnter(data) {
-        openBio();
-      },
-    },
-    {
-      namespace: 'exhibiciones',
-      afterEnter(data) {
-        loadExhibits();
-      },
-    },
+if (pageName.classList.contains('home')) {
+  blends();
+} else if (pageName.classList.contains('shop')) {
+  imageProducts();
+  shopColor();
+} else if (pageName.classList.contains('product')) {
+  animateProductImages();
+  imageProducts();
 
-    {
-      namespace: 'product',
-      beforeEnter(data) { },
-      afterEnter(data) {
-        cuotas();
-        let productDetails = Array.prototype.slice.call(
-          document.querySelectorAll('.details-header>p')
-        );
-        let detailContent = document.querySelectorAll('#detail-value');
-        let detailPlaceholder = document.querySelector('#detail-ph');
 
-        let isUpside = document.querySelector('#product-upside');
+  setInterval(() => {
+    animateProductImages();
+  }, 8000);
 
-        if (isUpside) {
-          upside();
-        }
 
-        // multiOptions(productDetails, detailContent, detailPlaceholder);
+  let productInfo = document.querySelectorAll('.product-info > *');
+  let productForm = document.querySelectorAll('.product-info form');
+
+    const timeline = gsap.timeline({  
+      defaults: {
+        duration: 0.8,
+        delay: 0.5,
+        ease: Expo.easeOut,
       },
-    },
-    {
-      namespace: 'entrevista',
-      afterEnter(data) {
-        interview();
-        playAudio();
-      }
-    },
-    {
-      namespace: 'shop',
-      beforeEnter(data) { },
-      afterEnter(data) {
-        // setInterval(homeSlide, 6000);
-        homeSlide();
-      },
-    },
-    {
-      namespace: 'opening',
-      afterEnter(data) {
-        openingsCookies();
-        obrasDisponibles();
-        openBio();
-        openBioCurador();
-        playAudio();
-      },
-    }
-  ],
-  debug: true,
-});
+    });
+
+    timeline
+      .set(productInfo, {opacity: 0, y: '50px'})
+      .to(productInfo, {opacity: 1, y: '0px', stagger: 0.1}, 0)
+      .to(productForm, {opacity: 1, y: '0px'}, 0.4);
+
+
+}
+
+
+// barba.init({
+//   timeout: 5000,
+//   prevent: ({ el }) => el.classList.contains('barba-prevent'),
+//   transitions: [
+//     {
+//       leave({ current, next, trigger }) {
+//         let cursor = document.querySelector('.cursor');
+//         cursor.classList.remove('is-hover');
+//         cursor.classList.remove('is-shop');
+//         cursor.classList.remove('add-cart');
+//         // closeSideCart();
+//         // closeMenu();
+
+//         return new Promise((resolve) => {
+//           const timeline = gsap.timeline({
+//             defaults: {
+//               ease: Expo.easeOut,
+//             },
+//             onComplete() {
+//               current.container.remove();
+//               resolve();
+//             },
+//           });
+//           timeline
+//             .call(() => {
+//               preLoad[0].classList.add('animate');
+//             })
+//             .set(preLoad, { x: '100%', opacity: '1' })
+//             .to(current.container, { opacity: 0.6, x: '-10%', duration: 2 }, 0)
+//             .to(preLoad[0], { x: '0%', ease: Power4.easeOut, duration: 1.5 }, 0);
+//         });
+//       },
+//       enter({ current, next, trigger }) {
+//         return new Promise((resolve) => {
+//           window.scrollTo({
+//             top: 0,
+//           });
+//           runScripts();
+//           const timeline = gsap.timeline({
+//             onComplete() {
+//               resolve();
+//             },
+//             defaults: {
+//               duration: 2,
+//               ease: Expo.easeOut,
+//             },
+//           });
+
+//           timeline
+//             .call(() => {
+//               preLoad[0].classList.remove('animate');
+//             })
+//             .set(next.container, { opacity: 0, x: '10%' })
+//             .to(preLoad, { x: '-100%', opacity: 1, duration: 2.3 }, 0)
+//             .to(next.container, { opacity: 1, x: '0' }, 0.5);
+//         });
+//       },
+//     },
+//     {
+//       to: { namespace: ['Cart'] },
+//       leave({ current, next, trigger }) {
+//         closeMenu();
+//         // ACA CUANDO ES AL CART
+//         return new Promise((resolve) => {
+//           const timeline = gsap.timeline({
+//             defaults: {
+//               duration: 0.5,
+//             },
+//             onComplete() {
+//               current.container.remove();
+//               resolve();
+//             },
+//           });
+//           timeline.to(current.container, { opacity: 0.2 });
+//           // .to('header', {opacity: 0.2}, 0)
+//           // .to(footer, {display: 'none'}, 0);
+//         });
+//       },
+//       enter({ current, next, trigger }) {
+//         console.log('entering to cart');
+//         let closeCart = document.querySelector('.close-sd');
+
+//         cartLink = current.url.path;
+//         if (cartLink === '/cart') {
+//           closeCart.setAttribute('href', '/shop');
+//         } else {
+//           closeCart.setAttribute('href', cartLink);
+//         }
+
+//         return new Promise((resolve) => {
+//           window.scrollTo({
+//             top: 0,
+//           });
+//           runScripts();
+//           const timeline = gsap.timeline({
+//             onComplete() {
+//               resolve();
+//             },
+//             defaults: {
+//               duration: 0.5,
+//               ease: Expo.easeOut,
+//             },
+//           });
+
+//           timeline
+//             // .set(header, {y: '-100%'})
+//             .to(next.container, { opacity: 1, scale: 0.95 });
+//         });
+//       },
+//     },
+
+//     {
+//       from: { namespace: ['Cart'] },
+//       leave({ current, next, trigger }) {
+//         closeMenu();
+//         // ACA CUANDO ES AL CART
+//         return new Promise((resolve) => {
+//           const timeline = gsap.timeline({
+//             defaults: {
+//               duration: 0.5,
+//             },
+//             onComplete() {
+//               current.container.remove();
+//               resolve();
+//             },
+//           });
+//           timeline
+//             .set(next.container, { opacity: 0.2 })
+//             .to(current.container, { opacity: 0, scale: 1 });
+//         });
+//       },
+//       enter({ current, next, trigger }) {
+//         console.log('leaving cart');
+
+//         return new Promise((resolve) => {
+//           window.scrollTo({
+//             top: 0,
+//           });
+//           runScripts();
+//           const timeline = gsap.timeline({
+//             onComplete() {
+//               resolve();
+//             },
+//             defaults: {
+//               duration: 0.5,
+//               ease: Expo.easeOut,
+//             },
+//           });
+
+//           console.log(current.container);
+//           timeline.to(next.container, { opacity: 1 });
+//         });
+//       },
+//     },
+//   ],
+//   views: [
+//     {
+//       namespace: 'home',
+//       afterEnter(data) {
+//         blends();
+//       },
+
+//       beforeLeave(data) { },
+//     },
+//     {
+//       namespace: 'product',
+//       afterEnter(data) {
+//        imageProducts()
+//       },
+//     },
+//     {
+//       namespace: 'shop',
+//       beforeEnter(data) { },
+//       afterEnter(data) {
+//         imageProducts();
+//       },
+//     },
+//   ],
+//   debug: true,
+// });
 
 
 const realHeight = () => {

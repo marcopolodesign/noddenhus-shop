@@ -164,6 +164,16 @@ function noddenhus_scripts() {
 
 	wp_enqueue_script( 'noddenhus-main', get_template_directory_uri() . '/js/main.js',  array( 'jquery' ), '0.5.2' , true);
 
+
+
+	// wp_enqueue_script( 'noddenhus-barba', get_template_directory_uri() . '/js/barba.js',  array( 'jquery' ), '0.5.2' , true);
+
+	// wp_enqueue_script( 'noddenhus-prefetch', get_template_directory_uri() . '/js/barba-prefetch.js',  array( 'jquery' ), '0.5.2' , true);
+
+	// wp_enqueue_script( 'noddenhus-gsap', get_template_directory_uri() . '/js/gsap.js',  array( 'jquery' ), '0.5.2' , true);
+
+	wp_enqueue_script( 'noddenhus-gsap-text', get_template_directory_uri() . '/js/gsap-text.js',  array( 'jquery' ), '0.5.2' , true);
+
 	
 }
 add_action( 'wp_enqueue_scripts', 'noddenhus_scripts' );
@@ -201,3 +211,32 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
 }
+
+// To change add to cart text on single product page
+add_filter( 'woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_single_add_to_cart_text' ); 
+function woocommerce_custom_single_add_to_cart_text() {
+		return __( 'Agregar al Carrito', 'woocommerce' ); 
+}
+
+// To change add to cart text on product archives(Collection) page
+add_filter( 'woocommerce_product_add_to_cart_text', 'woocommerce_custom_product_add_to_cart_text' );  
+function woocommerce_custom_product_add_to_cart_text() {
+    return __( 'Comprar', 'woocommerce' );
+}
+
+
+
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+
+remove_action('woocommerce_single_product_summary','woocommerce_template_single_rating', 10);
+
+remove_action('woocommerce_single_product_summary','woocommerce_template_single_price', 10);
+
+remove_action('woocommerce_single_product_summary','woocommerce_template_single_meta', 40);
+
+
+remove_action ('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs',10 );
+
+
+
+
