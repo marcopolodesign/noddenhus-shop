@@ -100,6 +100,11 @@ if ( ! function_exists( 'noddenhus_setup' ) ) :
 				'flex-height' => true,
 			)
 		);
+		
+		if( class_exists( 'WooCommerce' ) ){
+			// Include custom plugin for side cart
+			require get_template_directory() . '/inc/side-cart-woocommerce/wsc.php';
+		}
 	}
 endif;
 add_action( 'after_setup_theme', 'noddenhus_setup' );
