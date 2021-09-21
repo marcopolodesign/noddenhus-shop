@@ -11,7 +11,7 @@ get_header();
 
     </div>
 
-    <div class="hygge-home flex w-100">
+    <div class="hygge-home flex w-100 column-mobile">
         <div class="bg-main-dark pa5 w-50-ns flex">
         <div class="m-auto pa4">
            <?php the_field('hygge_text');?>
@@ -31,8 +31,8 @@ get_header();
          <p class="black tc mt4">Productos proximamente disponibles</p>
         </div>
        
-        <div class="home-products-grid flex mt2 justify-between relative z-3 ph5-ns">
-            <?php $products = get_posts(array('posts_per_page' => -1, 'post_type' => 'product', 'orderby' => 'title', 'order' => 'ASC')); 
+        <div class="home-products-grid flex column-mobile mt2 justify-between relative z-3 ph5-ns">
+            <?php $products = get_posts(array('posts_per_page' => -1, 'post_type' => 'product', 'orderby' => 'title', 'order' => 'ASC', 'product_cat' => "Yerba Mate")); 
                 foreach ($products as $product): 
                     $p = wc_get_product( $product->ID ); 
                     // $anio = get_post_meta( $product->get_id(), 'anio', true );
@@ -54,7 +54,7 @@ get_header();
         <div class="absolute bottom-0 left-0 w-100 home-products-overlay bg-main-light z-2"></div>
     </div>
 
-    <div class="relative home-aob-image">
+    <div class="relative home-aob-image desktop">
             <div class="absolute-cover att-fixed" style="background-image: url(<?php the_field('home_aob_image');?>)"></div>
         </div>
 
@@ -108,7 +108,7 @@ get_header();
         </div>
         </div>
 
-        <div class="flex container jic relative mv5 pv5 home-ending w-100 overflow-hidden" background-color="white">
+        <div class="flex column-mobile container jic relative mv5 pv5 home-ending w-100 overflow-hidden" background-color="white">
             <div class="w-70-ns ph5">
                 <img src="<?php the_field('home_ending_image');?>">
             </div>

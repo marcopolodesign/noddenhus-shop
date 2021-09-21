@@ -22,7 +22,7 @@
 		<div class="relative z-2">
 			<h1	class="black tc center measure mt5 mb6 f2">Tenes dudas? Mandanos un correo y una persona de nuestro equipo con gusto contestará tus preguntas.</h1>
 
-			<div class="flex items-start">
+			<div class="flex items-start column-mobile">
 					<?php get_template_part('template-parts/subscribe', get_post_type()); ?>
 
 			<div class="tr w-20-ns">

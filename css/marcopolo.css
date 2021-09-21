@@ -985,6 +985,10 @@ span.white {
     display: none;
   }
 
+  .desktop {
+    display: none;
+  }
+
   /* ---- MARGINS------ */
 
   .mv6 {
@@ -1013,5 +1017,9 @@ span.white {
   .timeline-item h3 {
     text-align: left;
     padding-left: 20px;
+  }
+
+  .column-mobile {
+    flex-direction: column;
   }
 }
