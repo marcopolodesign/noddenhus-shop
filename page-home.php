@@ -2,12 +2,15 @@
 get_header();
 ?>
 <main id="main" class="home" data-barba="container"  data-barba-namespace="home">
-    <div class="flex home-landing relative">
-        <div class="m-auto relative z-2 container tc flex flex-column justify-center">
+    <div class="flex home-landing relative overflow-hidden">
+        <div class="m-auto relative z-3 container tc flex flex-column justify-center">
             <?php echo get_field('home_text');?>
         </div>
 
-        <div class="absolute-cover" style="background-image: url(<?php the_field('home_image');?>);?>"></div>
+        <!-- <div class="absolute-cover bg-center" style="background-image: url(<?php the_field('home_image');?>);"></div> -->
+
+        <video class="home-video" autoplay="" loop="" playsinline="" autopictureinpicture=""  src="/wp-content/uploads/2021/09/Reel.mp4"></video>
+        <div class="black-overlay absolute-cover"></div>
 
     </div>
 
@@ -28,7 +31,6 @@ get_header();
     <div class="home-products pv6 relative cover bg-center no-repeat container" style="background-image: url(<?php the_field('products_bg');?>)">
         <div class="measure-wide center">
          <h1 class="black tc"><?php the_field('home_products_title');?></h1>
-         <p class="black tc mt4">Productos proximamente disponibles</p>
         </div>
        
         <div class="home-products-grid flex column-mobile mt2 justify-between relative z-3 ph5-ns">
@@ -42,7 +44,7 @@ get_header();
                     <img src=<?php echo $image;?>>
                     <div class="home-product-description measure center">
                        <h2 class="tc"><?php echo $p->name; ?></h2>
-                       <p class="tc mt1 ph4 mb4"><?= $p->post->post_content;?></p>
+                       <p class="tc mt1 ph4 mb4"><?= $p->post->post_excerpt;?></p>
                        <a class="main-cta m-auto w-max cta-font bg-black white flex">Comprar</a>
 
                     </div>
@@ -52,11 +54,14 @@ get_header();
           
         </div>
         <div class="absolute bottom-0 left-0 w-100 home-products-overlay bg-main-light z-2"></div>
+
+        <a href="/grid-shop" class="no-deco main-cta w-max cta-font bg-main-dark white relative z-3 flex center mt5">Ver todos los productos</a>
+
     </div>
 
     <div class="relative home-aob-image desktop">
-            <div class="absolute-cover att-fixed" style="background-image: url(<?php the_field('home_aob_image');?>)"></div>
-        </div>
+        <div class="absolute-cover bg-center cover" style="background-image: url(<?php the_field('home_aob_image');?>)"></div>
+    </div>
 
 
     <div class="pv6">

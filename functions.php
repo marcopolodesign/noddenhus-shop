@@ -51,6 +51,8 @@ if ( ! function_exists( 'noddenhus_setup' ) ) :
 		register_nav_menus(
 			array(
 				'menu-1' => esc_html__( 'Primary', 'noddenhus' ),
+				'menu-2' => esc_html__( 'Mobile', 'noddenhus' ),
+
 			)
 		);
 
@@ -167,7 +169,6 @@ function noddenhus_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
-	wp_enqueue_script( 'noddenhus-main', get_template_directory_uri() . '/js/main.js',  array( 'jquery' ), '0.5.2' , true);
 
 
 
@@ -175,10 +176,18 @@ function noddenhus_scripts() {
 
 	// wp_enqueue_script( 'noddenhus-prefetch', get_template_directory_uri() . '/js/barba-prefetch.js',  array( 'jquery' ), '0.5.2' , true);
 
-	// wp_enqueue_script( 'noddenhus-gsap', get_template_directory_uri() . '/js/gsap.js',  array( 'jquery' ), '0.5.2' , true);
+	wp_enqueue_script( 'noddenhus-gsap', get_template_directory_uri() . '/js/gsap.js',  array( 'jquery' ), '0.5.2' , true);
 
 	wp_enqueue_script( 'noddenhus-gsap-text', get_template_directory_uri() . '/js/gsap-text.js',  array( 'jquery' ), '0.5.2' , true);
-	wp_enqueue_script( 'autofill-checkout', get_template_directory_uri() . '/js/autofill-checkout.js',  array( 'jquery' ), '1.3');
+
+
+	if (is_checkout()) {
+			wp_enqueue_script( 'autofill-checkout', get_template_directory_uri() . '/js/autofill-checkout.js',  array( 'jquery' ), '1.3');
+	}
+
+
+	wp_enqueue_script( 'noddenhus-main', get_template_directory_uri() . '/js/main.js',  array( 'jquery' ), '0.5.2' , true);
+
 	
 }
 add_action( 'wp_enqueue_scripts', 'noddenhus_scripts' );

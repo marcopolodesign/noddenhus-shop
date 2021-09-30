@@ -142,10 +142,16 @@ const runScripts = () => {
   postAnimations();
   setTimeout(() => {
       allCursor();
-  }, 1000);
+  }, 3000);
 }
 
 const headerColor = () => {
+  let color = document.querySelector('main').getAttribute('header-color');
+  if (color) {
+      document.querySelector('header').classList.add(color);
+  }
+
+
   let isCheckout = document.querySelector('.checkout-general-container');
   if (isCheckout) {
     document.querySelector('header').classList.add('black')
@@ -220,6 +226,82 @@ const shopColor = () => {
 
     })
 }
+
+const homeVideo = () => {
+  let homeStarter = document.querySelector('.home-landing');
+  let video = document.querySelector('video');
+
+  // video.volume = 0
+
+  let hideText = () => {
+     setTimeout(() => {
+    homeStarter.classList.add('viewing');
+    // video.volume = 0.3
+    
+    },6000)
+  }
+
+
+  hideText();
+ 
+
+  homeStarter.addEventListener('mousemove', () => {
+    homeStarter.classList.remove('viewing');
+    // video.volume = 0
+    hideText();
+  })
+}
+
+
+
+let menu = document.querySelector('.menu-container')
+let menuContent = document.querySelector('#side-menu');
+let linkContainer = document.querySelectorAll('ul.menu-nav > li')
+let menuLinks = document.querySelectorAll('ul.menu-nav > li > a')
+let menuBg = menu.querySelector('.absolute-cover.bg-main-dark')
+
+
+let delay = 8;
+let duration = .4
+let transition = Power4.easeInOut;
+
+
+let menuTL = gsap.timeline({
+  paused: true
+});
+menuTL
+.to (menuBg, {scaleX: 1, force3D: false, duration: .4 , transition: Power4.easeInOut}).to(menuLinks, {y: 0, stagger: 0.05}, .2)
+.to(linkContainer, {y: 0, stagger: 0.05}, .4)
+
+
+const openMenu = () => {
+  let trigger = document.querySelector('.menu-trigger');
+  trigger.addEventListener('click', ()=> {
+    menu.classList.remove('o-0');
+    menu.classList.remove('pointers-none');
+
+    menuTL.play();
+
+  })
+}
+
+
+const closeMenu = () => {
+  let trigger = document.querySelector('.close-menu');
+
+  trigger.addEventListener('click', ()=> {
+    menuTL.reverse();
+    setTimeout(() => {
+      menu.classList.add('o-0');
+      menu.classList.add('pointers-none');
+    }, 1200);
+   
+  })
+}
+
+closeMenu();
+openMenu();
+
 
 
 const Menu = () => {
@@ -317,6 +399,11 @@ const animateProductImages = () => {
 
 if (pageName.classList.contains('home')) {
   blends();
+
+if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  homeVideo();
+}
+
 } else if (pageName.classList.contains('shop')) {
   imageProducts();
   shopColor();

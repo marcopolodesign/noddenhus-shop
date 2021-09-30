@@ -38,19 +38,25 @@
 		</nav>
 
 		<div class="header-aob header-nav flex jic">
-			<a href="/como-comprar" class="has-after" style="margin-right: 10px;">¿Cómo comprar?</a>
+			<a href="/faq" class="has-after" style="margin-right: 10px;">Preguntas Frecuentes</a>
 			<a href="/mayorista" class="has-after">Ventas Mayoristas</a>
 			<div class="flex items-center">
 				<div class="flex jic open-cart anchor ml4">
-					<p class="mr2 mt2 ml4-ns has-after" style="margin-right: 10px; font-size: 0.875em;">Ver carrito</p>
-					<svg class="cart-trigger" width="25" height="32" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<p class="mr2 ml4-ns has-after" style="margin-right: 10px; font-size: 0.875em;">Ver carrito</p>
+					<svg class="cart-trigger mb2" width="25" height="32" viewBox="0 0 25 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M21.0576 30.8366H3.94247C3.59066 30.8378 3.24208 30.7751 2.91679 30.6519C2.59151 30.5288 2.29596 30.3478 2.0472 30.1193C1.79844 29.8907 1.60137 29.6192 1.46735 29.3204C1.33334 29.0216 1.26503 28.7014 1.26638 28.3782V10.1974H23.7338V28.3782C23.7351 28.7014 23.6668 29.0216 23.5328 29.3204C23.3988 29.6192 23.2017 29.8907 22.953 30.1193C22.7042 30.3478 22.4087 30.5288 22.0834 30.6519C21.7581 30.7751 21.4095 30.8378 21.0576 30.8366Z" stroke="black" stroke-width="2" stroke-miterlimit="10"/>
 					<path d="M6.22172 15.9642V8.68071C6.10381 7.10882 6.66573 5.55768 7.78543 4.36414C8.90515 3.17059 10.4922 2.43105 12.202 2.30609H12.7963C14.5061 2.43105 16.0931 3.17059 17.2129 4.36414C18.3326 5.55768 18.8945 7.10882 18.7766 8.68071V15.9704" stroke="black" stroke-width="2" stroke-miterlimit="10"/>
 					</svg>
 				</div>
 
-				<div class="menu tablet ml3">
-					<p class="has-after">Menu</p>
+				<div class="menu tablet ml3 mt1 menu-trigger">
+				<svg width="27" height="14" viewBox="0 0 27 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M0 1H27" stroke="black" stroke-width="2"/>
+					<path d="M0 7H27" stroke="black" stroke-width="2"/>
+					<path d="M0 13H27" stroke="black" stroke-width="2"/>
+				</svg>
+
+
 				</div>
 			</div>
 		</div>
@@ -71,7 +77,7 @@
 		</a>	
 	</header><!-- #masthead -->
 
-		
+		<?php get_template_part('template-parts/menu'); ?>
 
 	<div class="pre-load bg-black"></div>
 	<div class="cursor desktop"></div>

@@ -118,7 +118,7 @@ function update_cart_ajax(){
 
 	//If empty return error
 	if(!$cart_key){
-		wp_send_json(array('error' => __('Something went wrong','miranda-bosch')));
+		wp_send_json(array('error' => __('Something went wrong','noddenhus')));
 	}
 	
 	$cart_success = WC()->cart->set_quantity( $cart_key, $new_qty ); 

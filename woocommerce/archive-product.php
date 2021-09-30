@@ -37,7 +37,7 @@ $isShop = is_shop() ? 'bg-white' : "";
 // do_action( 'woocommerce_before_main_content' );
 
 ?>
-<main id="main" data-barba="container" data-barba-namespace="shop" class="shop mt5 <?php echo $isShop;?>">
+<main id="main" data-barba="container" data-barba-namespace="shop" class="shop mt5 <?php echo $isShop;?>" header-color="black">
 
 <?php	
 	$category_id = $cat->term_id; 
@@ -72,7 +72,7 @@ $isShop = is_shop() ? 'bg-white' : "";
 		<?php 
 		foreach ($all_categories as $cat) :
 			$category_id = $cat->term_id; 
-			if ($cat->name != 'Uncategorized'):
+			if ($cat->name != 'Uncategorized' && $cat->count > 0):
 			echo '<p class="has-after anchor black mh3"> ' . $cat->name  . ' </p>';
 			endif;
 		endforeach; wp_reset_postdata()?>
@@ -97,15 +97,18 @@ $isShop = is_shop() ? 'bg-white' : "";
 	// do_action( 'woocommerce_archive_description' );
 	?>
 </header>
-
 	<div class="views flex jic w-max fixed bottom-0 right-0 pa2 ma4 z-5 bg-white" style="border-radius: 100px;">
-			<a href="/shop" class="scroll active mh3">
+			<a href="/shop" class="scroll mh3 
+				<?php	if (is_shop()) : echo 'active'; endif; ?>
+			">
 				<svg width="27" height="20" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M0 0H2V2H0V0ZM0 5H2V7H0V5ZM0 10H2V12H0V10ZM16 2V0H4.023V2H14.8H16ZM4 5H16V7H4V5ZM4 10H16V12H4V10Z" fill="#AAAAAA"/>
 				</svg>
 
 			</a>
-			<a href="/grid-shop" class="grid mh3">
+			<a href="/grid-shop" class="grid mh3
+			<?php	if (!is_shop()) : echo 'active'; endif; ?>
+			">
 				<svg width="27" height="27" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M5.28571 0.85H1.85714C1.59003 0.85 1.33386 0.956109 1.14499 1.14499C0.956109 1.33386 0.85 1.59003 0.85 1.85714V5.28571C0.85 5.55283 0.956109 5.809 1.14499 5.99787C1.33386 6.18675 1.59003 6.29286 1.85714 6.29286H5.28571C5.55283 6.29286 5.809 6.18675 5.99787 5.99787C6.18675 5.809 6.29286 5.55283 6.29286 5.28571V1.85714C6.29286 1.59003 6.18675 1.33386 5.99787 1.14499C5.809 0.956109 5.55283 0.85 5.28571 0.85ZM2.00714 5.13571V2.00714H5.13571V5.13571H2.00714Z" fill="#AAAAAA" stroke="#AAAAAA" stroke-width="0.3"/>
 						<path d="M12.1429 0.85H8.71429C8.44718 0.85 8.19101 0.956109 8.00213 1.14499C7.81326 1.33386 7.70715 1.59003 7.70715 1.85714V5.28571C7.70715 5.55283 7.81326 5.809 8.00213 5.99787C8.19101 6.18675 8.44718 6.29286 8.71429 6.29286H12.1429C12.41 6.29286 12.6661 6.18675 12.855 5.99787C13.0439 5.809 13.15 5.55283 13.15 5.28571V1.85714C13.15 1.59003 13.0439 1.33386 12.855 1.14499C12.6661 0.956109 12.41 0.85 12.1429 0.85ZM8.86429 5.13571V2.00714H11.9929V5.13571H8.86429Z" fill="#AAAAAA" stroke="#AAAAAA" stroke-width="0.3"/>
@@ -129,7 +132,7 @@ $isShop = is_shop() ? 'bg-white' : "";
 			$link = get_term_link( $cat->slug, 'product_cat' );?>
 
 		<?php if($cat->count > 0 && !($category_id === 21) ) : ?>
-			<div class="cat-header mv5 <?php echo $cat->name; ?>">
+			<div class="cat-header mv5" id="<?php echo $cat->slug; ?>">
 						<div class="cat-description mv4">
 							<h2 class="measure tc center">
 								<?php echo $cat->name ; ?>
@@ -139,7 +142,7 @@ $isShop = is_shop() ? 'bg-white' : "";
 					<?php $productArgs = array(
 						'post_type' => 'product',
 						'orderby' => 'date',
-						'order' => 'ASC',
+						'order' => 'DESC',
 						'product_cat' => $cat->name,
 						'posts_per_page' => -1,
 						// 'paged' => get_query_var( 'paged' ),

@@ -65,8 +65,8 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			
 	</div> -->
 
-	<div class="row">
-		<div class="col-6">
+	<div class="flex column-mobile">
+		<div class="w-50-ns mr3-ns">
 		<?php if ( $checkout->get_checkout_fields() ) : ?>
 
 			<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
@@ -76,7 +76,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			<div class="flex mb4">
 				<p class="has-after mr2">NØDDENHUS </p>
 				<p class="has-after mr2">></p>
-				<a href="/shop-grid" class="has-after mr2">SHOP </a>
+				<a href="/grid-shop" class="has-after mr2">SHOP </a>
 				<p class="has-after mr2">></p>
 				<p class="has-after mr2">CHECKOUT </p>
 				<!-- <p class="has-after mr3">ENVÍO ></p>
@@ -109,7 +109,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 		<?php endif; ?>
 		</div>
-		<div class="col-6 order-review-col">
+		<div class="w-40-ns ml-auto mr-0 ph4-ns order-review-col">
 		<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 		
 		<h3 class="main-font" id="order_review_heading"><?php esc_html_e( 'Your order', 'woocommerce' ); ?></h3>
@@ -129,7 +129,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 <style>
 
-	.row .col-6 {
+	.row  {
 		max-width: calc(50% - 15px);
 		flex: 0 0 calc(50% - 15px);
 	}
@@ -140,7 +140,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		justify-content: space-between;
 	}
 
-	.col-6.order-review-col {
+	.w-40-ns.order-review-col {
 		background: #f8f8f8;
 		padding: 20px 40px;
 		box-sizing: border-box;
@@ -346,6 +346,13 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	h3#ship-to-different-address {
     	margin-bottom: 20px;
     	margin-top: 10px;
+	}
+
+	@media (max-width: 580px) {
+		.w-40-ns.order-review-col {
+			padding: 20px;
+			margin-top: 30px;
+		}
 	}
 
 </style>
