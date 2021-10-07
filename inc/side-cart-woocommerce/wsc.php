@@ -85,7 +85,7 @@ function wsc_add_to_cart_ajax(){
 		// print notice
 		ob_start();
 		foreach( $error as $value ) {
-			wc_print_notice( $value, 'error' );
+			// wc_print_notice( $value, 'error' );
 		}
 
 		$js_data =  array(
@@ -128,7 +128,7 @@ function update_cart_ajax(){
 	}
 	else{
 		if(wc_notice_count('error') > 0){
-    		echo wc_print_notices();
+			echo wc_print_notices();
 		}
 	}
 	die();

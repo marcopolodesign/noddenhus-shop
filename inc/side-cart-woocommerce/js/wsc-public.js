@@ -99,7 +99,7 @@ jQuery(document).ready(function($){
 						$( document.body ).trigger( 'added_to_cart', [ response.fragments, response.cart_hash, atc_btn ] );
 					}
 					else if(response.error){
-						show_notice('error',response.error)
+						// show_notice('error',response.error)
 					}
 					else{
 						console.log(response);

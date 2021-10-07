@@ -315,6 +315,14 @@ ul.menu-nav li a {
 
 /* Home Desktop */
 
+.home-starter h1 {
+  font-size: 3.5rem;
+}
+
+.home-starter a {
+  margin-left: 0 !important;
+}
+
 .home-video {
   position: absolute;
   -webkit-transform: translate(-50%, -50%);
@@ -430,6 +438,11 @@ body.home .product:not(:first-child) {
 
 .blend-index:hover h2.has-after::after {
   transform: scaleX(1);
+  background-color: var(--mainDarkColor);
+}
+
+.cart-no-products {
+  margin: 0 10px;
   background-color: var(--mainDarkColor);
 }
 
@@ -1018,6 +1031,37 @@ body.single .cat-products-container {
     padding-left: 20px;
   }
 
+  /* Home iPad */
+
+  .home-starter {
+    height: 85vh;
+    min-height: unset !important;
+  }
+
+  .home-starter-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+
+  .home-starter-text > div,
+  .home-starter-text a {
+    margin: auto !important;
+  }
+
+  .home-starter-text > div * {
+  }
+
+  .video-container {
+    width: 100%;
+  }
+
   /* iPad Shop */
 
   .cat-products-container {
@@ -1085,7 +1129,8 @@ body.single .cat-products-container {
 
 @media (max-width: 580px) {
   h1,
-  .f1 {
+  .f1,
+  .home-starter h1 {
     font-size: 2rem;
   }
 
@@ -1372,5 +1417,24 @@ body.single .cat-products-container {
 
   .is-product.in-grid {
     border-bottom: 0px solid black;
+  }
+
+  /* FAQ Mobile */
+
+  .featured-faq {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  /* .faq-filter.sticky {
+    overflow: visible;
+  } */
+
+  .filters-scroll h2:last-child {
+    margin-right: 0;
+  }
+
+  .faq-answer p {
+    line-height: 1.2;
   }
 }
