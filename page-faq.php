@@ -7,7 +7,7 @@ get_header();
     <?php get_template_part('template-parts/faq-header');?>
 
     <div class="relative container pt3 z-4">
-    <div class="featured-faq-container flex justify-between items-start">
+    <div class="featured-faq-container flex column-mobile justify-between items-start">
       <?php if( have_rows('main_faq') ): while ( have_rows('main_faq') ) : the_row(); 
        $mainColor = get_field('main_color');
       ?>

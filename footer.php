@@ -27,9 +27,9 @@
 
 			<div class="w-20-ns tr">
 				<div class=" mb3">
-					<p class="black">+54 11 4815-3515</p>
+					<!-- <p class="black">+54 11 4815-3515</p>
 					<p class="black">Mt. de Alverar 1799</p>
-					<p class="black">CABA / Argentina</p>
+					<p class="black">CABA / Argentina</p> -->
 				</div>
 
 				<a href="https://instagram.com/noddenhus" target="_blank" class="ml-auto mr0 db">

@@ -195,13 +195,13 @@ const imageProducts = () => {
 
 const shopColor = () => {
   let backgroundChange = Array.prototype.slice.call(document.querySelectorAll(".is-product[background-color]"));
+  let combos = document.querySelector('#combos')
   let main = document.querySelector('#main')
   let header = document.querySelector('header')
 
     document.addEventListener('scroll', () => {
       const pixels = window.pageYOffset;
       backgroundChange.forEach((change, i) => {
-
 
           if ((pixels + windowHeight / 2 > backgroundChange[0].offsetTop) && pixels + windowHeight / 2 < backgroundChange[1].offsetTop) {
 
@@ -214,13 +214,14 @@ const shopColor = () => {
             main.style.backgroundColor = backgroundChange[1].getAttribute('background-color');
             header.style.backgroundColor = backgroundChange[1].getAttribute('background-color');
 
-          } else if (pixels + windowHeight / 2 > backgroundChange[2].offsetTop) {
+          } else if (pixels + windowHeight / 2 > backgroundChange[2].offsetTop && pixels + windowHeight/2 < combos.offsetTop) {
             main.style.backgroundColor = backgroundChange[2].getAttribute('background-color');
             header.style.backgroundColor = backgroundChange[2].getAttribute('background-color');
           }
         
         else {
           main.style.backgroundColor = '';
+          header.style.backgroundColor = '';
         }
       }) 
 
@@ -228,15 +229,20 @@ const shopColor = () => {
 }
 
 const homeVideo = () => {
-  let homeStarter = document.querySelector('.home-landing');
+  let homeStarter = document.querySelector('.home-starter');
   let video = document.querySelector('video');
 
-  // video.volume = 0
+  video.addEventListener('click' , ()=> {
+    video.removeAttribute('muted')
+    video.volume = 1.0
+
+    console.log('clicking')
+  })
 
   let hideText = () => {
      setTimeout(() => {
     homeStarter.classList.add('viewing');
-    // video.volume = 0.3
+    video.volume = 0.3
     
     },6000)
   }
@@ -247,7 +253,7 @@ const homeVideo = () => {
 
   homeStarter.addEventListener('mousemove', () => {
     homeStarter.classList.remove('viewing');
-    // video.volume = 0
+    video.volume = 0
     hideText();
   })
 }
@@ -397,12 +403,78 @@ const animateProductImages = () => {
   });
 };
 
+const faq = () => {
+  const faq = document.querySelectorAll('.faq-item');
+  let categories = document.querySelectorAll('.faq-category');
+
+
+    faq.forEach(q => {
+      let isExpanded = q.getAttribute('area-expanded');
+      q.addEventListener('click', (e)=> {
+        console.log(isExpanded)
+        let answer = q.querySelector('.faq-answer');
+        let answerContent = answer.querySelector('p');
+        let arrow = q.querySelector('svg');
+
+        let height = answer.querySelector('p').clientHeight ;   
+        console.log(height)
+
+        let faq = gsap.timeline({
+          defaults: {
+            easing: Expo.EaseOut,
+            duration: 0.2,
+          },
+        })
+
+        if (!isExpanded) {
+          faq
+          // .to(arrow, {transform: 'rotate(-90deg)'})
+          .to (answer, { opacity: 0})  
+          .to (answerContent, {marginTop: '0px', marginBottom: "0px"}, 0)
+          .to (answer, {maxHeight: "0", opacity: 0}, 0.15)
+        
+            console.log('reverse')
+            isExpanded = true;  
+        } else {
+          faq
+          // .to(arrow, {transform: 'rotate(0deg)'})
+          .to (answer, {maxHeight: height})
+          .to (answer, { opacity: 1}, 0.3)
+          .to (answerContent, {marginTop: '10px', marginBottom: "10px"}, 0.3)
+          isExpanded = false;  
+        }          
+      })
+    })
+
+
+  const filters = document.querySelectorAll('.faq-filter h2');
+
+  // Filter cat on click
+  filters.forEach((filter) => {
+    let cat = filter.getAttribute('id');
+
+    filter.addEventListener('click', () => {
+      categories.forEach((q) => {
+        let faqCat = q.getAttribute('faq-cat');
+        q.style.display = 'none';
+        if (faqCat === cat) {
+          q.style.display = '';
+        } else if (cat === 'View All') {
+          q.style.display = '';
+        } else {
+          q.style.display = 'none';
+        }
+      });
+    });
+  });
+};
+
 if (pageName.classList.contains('home')) {
   blends();
 
-if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+// if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
   homeVideo();
-}
+// }
 
 } else if (pageName.classList.contains('shop')) {
   imageProducts();
@@ -434,6 +506,8 @@ if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
       .to(productForm, {opacity: 1, y: '0px'}, 0.4);
 
 
+} else if (pageName.classList.contains('faq')) {
+  faq();
 }
 
 
