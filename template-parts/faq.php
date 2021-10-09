@@ -18,7 +18,7 @@
       $color = get_sub_field('color');
     ?>
       <div class="faq-category" faq-cat="<?php the_sub_field('faq_cat');?>">
-        <h1 class="white pa3 mb3" style="background-color: <?php the_sub_field('color');?>"><?php the_sub_field('faq_cat');?></h1>
+        <h2 class="white pa3 mb3" style="background-color: <?php the_sub_field('color');?>"><?php the_sub_field('faq_cat');?></h1>
           <?php if( have_rows('faq') ): while ( have_rows('faq') ) 
           : the_row(); if (get_sub_field('question')):?>
             <div class="faq-item pa3 mb4 eki-violet-border" area-expanded="false" style="border: 1px solid <?php echo $color; ?>">
@@ -66,8 +66,8 @@
   transition: all 0.3s ease;
 }
 
-.faq-filter > h2:hover {
-  color: #000 !important;
+.faq-filter  h2:hover {
+  color: var(--mainDarkColor) !important;
 }
 
 .faq-content {
@@ -132,7 +132,7 @@
   right: 10px;
   transform: translateY(-50%);
   content: '';
-  background-image: url('/wp-content/uploads/2020/01/arrow-pink.svg');
+  /* background-image: url('/wp-content/uploads/2020/01/arrow-pink.svg'); */
   height: 100%;
   transition: all 0.3s ease;
   width: 8.5px;
@@ -174,6 +174,10 @@
 
   .filters-scroll {
     flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
   }
 
   .filters-scroll h2 {
@@ -186,6 +190,26 @@
   .faq-question {
     padding-right: 25px;
   }
+
+  /* FAQ Mobile */
+
+  .featured-faq {
+    max-width: 100% !important;
+    margin-bottom: 30px;
+  }
+
+  /* .faq-filter.sticky {
+    overflow: visible;
+  } */
+
+  .filters-scroll h2:last-child {
+    margin-right: auto;
+  }
+
+  .faq-answer p {
+    line-height: 1.2;
+  }
+
 
 }
 </style>

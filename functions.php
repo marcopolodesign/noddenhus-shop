@@ -278,3 +278,35 @@ add_action( 'wp_ajax_autofill_checkout_fields_by_postcode', 'autofill_checkout_f
 
 
 
+add_action( 'woocommerce_cart_calculate_fees', 'discount_based_on_user_role', 20, 1 );
+function discount_based_on_user_role( $cart ) {
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) )
+        return; // Exit
+
+    // Only for 'company' user role
+    if ( ! current_user_can('administrator') )
+        return; // Exit
+
+    // HERE define the percentage discount
+    $percentage = 100;
+
+    $discount = $cart->get_subtotal() * $percentage / 100; // Calculation
+
+    // Applying discount
+    $cart->add_fee( sprintf( __("Discount (%s)", "woocommerce"), $percentage . '%'), -$discount, true );
+}
+
+
+add_action( 'woocommerce_thankyou', 'letsgo_auto_processing_orders');
+function letsgo_auto_processing_orders( $order_id ) {
+if ( ! $order_id )
+return;
+$order = wc_get_order( $order_id );
+//ID’s de las pasarelas de pago a las que afecta
+$paymentMethods = array( 'woo-mercado-pago-basic' );
+if ( !in_array( $order->payment_method, $paymentMethods ) ) return;
+// If order is “pending” update status to “processing”
+if( $order->has_status( 'pending' ) ) {
+$order->update_status( 'processing' );
+} }
+

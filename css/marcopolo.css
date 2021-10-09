@@ -669,14 +669,14 @@ p.lh1 {
 .faq-item p:last-child,
 .faq-item p:nth-child(2) {
   color: var(--darkgrey);
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .faq-item {
   max-height: min-content;
   max-height: -moz-min-content;
   max-height: intrinsic;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   background-color: var(--lightpink);
   cursor: pointer;
 }
@@ -690,7 +690,7 @@ p.lh1 {
 }
 
 .faq-item[area-expanded='true'] p:not(:first-child) {
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
 }
 
 .faq-question {
@@ -703,7 +703,7 @@ p.lh1 {
   right: 10px;
   transform: translateY(-50%);
   content: '';
-  background-image: url('/wp-content/uploads/2020/01/arrow-pink.svg');
+  /* background-image: url('/wp-content/uploads/2020/01/arrow-pink.svg'); */
   height: 100%;
   transition: all 0.3s ease;
   width: 8.5px;

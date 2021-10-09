@@ -77,7 +77,7 @@ $image = wp_get_attachment_url( $thumbnail_id );
 	
 
 
-		<div class="product-info pv7 w-50-ns ph6-ns summary entry-summary">
+		<div class="product-info pv7 w-50-ns ph5-ns summary entry-summary">
 
 			<a class="mb3-ns flex items-center relative back-to-shop has-after black no-deco" href="javascript:history.back()">
 				<svg width="25" height="25" class="mr2" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">

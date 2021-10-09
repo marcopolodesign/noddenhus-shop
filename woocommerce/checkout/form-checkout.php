@@ -352,7 +352,21 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		.w-40-ns.order-review-col {
 			padding: 20px;
 			margin-top: 30px;
+			margin-left: -20px;
+    	margin-right: -20px;
 		}
+
+
+	.woocommerce-billing-fields__field-wrapper, .woocommerce-shipping-fields__field-wrapper { 
+		flex-direction: column;
+	}
+
+
+	.woocommerce-billing-fields__field-wrapper p {
+		flex: 1 !important;
+		width: 100% !important;
+    max-width: 100% !important;
+	}
 	}
 
 </style>

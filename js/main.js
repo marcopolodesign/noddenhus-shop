@@ -440,7 +440,7 @@ const faq = () => {
           // .to(arrow, {transform: 'rotate(0deg)'})
           .to (answer, {maxHeight: height})
           .to (answer, { opacity: 1}, 0.3)
-          .to (answerContent, {marginTop: '10px', marginBottom: "10px"}, 0.3)
+          .to (answerContent, {marginTop: '10px', marginBottom: "10px"}, 0)
           isExpanded = false;  
         }          
       })
@@ -459,7 +459,7 @@ const faq = () => {
         q.style.display = 'none';
         if (faqCat === cat) {
           q.style.display = '';
-        } else if (cat === 'View All') {
+        } else if (cat === 'Ver Todas') {
           q.style.display = '';
         } else {
           q.style.display = 'none';
