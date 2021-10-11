@@ -57,10 +57,12 @@ defined( 'ABSPATH' ) || exit;
 			<p><?php wc_cart_totals_subtotal_html(); ?></p>
 		</div>
 
+		<?php if (WC()->cart->get_shipping_total() > 0): ?>
 		<div class="cart-shipping w-100">
 			<p><?php esc_html_e( 'Shipping', 'woocommerce' ); ?></p>
 			<p><?php echo WC()->cart->get_cart_shipping_total(); ?></p>
 		</div>
+		<?php endif; ?>
 
 		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
 			<div class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">

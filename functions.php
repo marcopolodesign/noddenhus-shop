@@ -248,12 +248,11 @@ remove_action('woocommerce_single_product_summary','woocommerce_template_single_
 
 remove_action('woocommerce_single_product_summary','woocommerce_template_single_meta', 40);
 
-
 remove_action ('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs',10 );
 
 function autofill_checkout_fields_by_postcode(){
 
-    global $wpdb;
+	global $wpdb;
 	$postcode = $_POST['postcode'];
     $results = $wpdb->get_results( "SELECT provincia, codigo, localidad FROM {$wpdb->prefix}localidades WHERE cp = " . $postcode );
     
@@ -278,23 +277,23 @@ add_action( 'wp_ajax_autofill_checkout_fields_by_postcode', 'autofill_checkout_f
 
 
 
-add_action( 'woocommerce_cart_calculate_fees', 'discount_based_on_user_role', 20, 1 );
-function discount_based_on_user_role( $cart ) {
-    if ( is_admin() && ! defined( 'DOING_AJAX' ) )
-        return; // Exit
+// add_action( 'woocommerce_cart_calculate_fees', 'discount_based_on_user_role', 20, 1 );
+// function discount_based_on_user_role( $cart ) {
+//     if ( is_admin() && ! defined( 'DOING_AJAX' ) )
+//         return; // Exit
 
-    // Only for 'company' user role
-    if ( ! current_user_can('administrator') )
-        return; // Exit
+//     // Only for 'company' user role
+//     if ( ! current_user_can('administrator') )
+//         return; // Exit
 
-    // HERE define the percentage discount
-    $percentage = 100;
+//     // HERE define the percentage discount
+//     $percentage = 100;
 
-    $discount = $cart->get_subtotal() * $percentage / 100; // Calculation
+//     $discount = $cart->get_subtotal() * $percentage / 100; // Calculation
 
-    // Applying discount
-    $cart->add_fee( sprintf( __("Discount (%s)", "woocommerce"), $percentage . '%'), -$discount, true );
-}
+//     // Applying discount
+//     $cart->add_fee( sprintf( __("Discount (%s)", "woocommerce"), $percentage . '%'), -$discount, true );
+// }
 
 
 add_action( 'woocommerce_thankyou', 'letsgo_auto_processing_orders');
@@ -310,3 +309,33 @@ if( $order->has_status( 'pending' ) ) {
 $order->update_status( 'processing' );
 } }
 
+add_filter('woocommerce_update_order_review_fragments', 'order_fragments_split_shipping', 10, 1);
+function order_fragments_split_shipping($order_fragments) {
+
+	if (is_checkout){
+		ob_start();
+		woocommerce_order_review_shipping_split();
+		$woocommerce_order_review_shipping_split = ob_get_clean();
+		$order_fragments['.checkout-review-shipping-table'] =$woocommerce_order_review_shipping_split;
+		return $order_fragments;
+	}
+
+}
+
+function woocommerce_order_review_shipping_split( $deprecated = false ) {
+	wc_get_template( 'checkout/shipping-review.php', array( 'checkout' => WC()->checkout() ) );
+}
+
+add_filter('gettext', 'woo_translations', 20, 3);
+add_filter('ngettext', 'woo_translations', 20, 3);
+function woo_translations( $translation, $text, $domain ) {
+        
+    $custom_text = array(
+        'Ingresá tu dirección para ver las opciones de envío.' => '',
+    );
+
+    if( array_key_exists( $translation, $custom_text ) ) {
+        $translation = $custom_text[$translation];
+    }
+    return $translation;
+}

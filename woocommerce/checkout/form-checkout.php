@@ -13,6 +13,7 @@
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
  * @version 3.5.0
+ * @global WC_Checkout $checkout
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,45 +26,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	return;
 } ?>
 
-<div class="flex relative checkout-general-container">
-
-<!-- <div class="w-40-ns pa4 checkout-details-container sticky top-0 flex">
-	<div class="m-auto pa5 ph4 pt0  bg-white w-90-ns center">
-		<div class="discount-code">
-			<?php do_action( 'woocommerce_before_checkout_form', $checkout ); ?>
-		</div>
-
-		<div class="checkout-details">
-			<h2 class="mb4">Detalle de tu compra:</h2>
-			<p class="mt2">Nombre:<br><span id="detail-name"></span> <span id="detail-last"></span></p>
-
-			<p class="mt2">Dirección:<br>
-				<span id="detail-street"></span>
-				<span id="detail-ap"></span>
-				<span id="detail-city"></span>
-				<span id="detail-province"></span>
-				<span id="detail-pc"></span>
-			</p>
-
-			<p class="mt2">Teléfono:<br><span id="detail-phone"></span></p>
-			<p class="mt2">Mail:<br><span id="detail-mail"></span></p>
-
-		</div>
-	</div>
-	
-
-</div>
--->
-
 	<form name="checkout" method="post" class="checkout woocommerce-checkout w-100-ns ml-auto mr-0 ph5 pv3 b5" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
-
-	<!-- <div class="sd-header flex justify-between mv5">
-			<h2 class="f2">Checkout</h2> -->
-			<!-- <a href="/shop" class="close-sd bg-black flex anchor pa2" cursor-color="red">
-					<img class="pa1" src="/wp-content/uploads/2020/01/close-icon.svg">
-			</a>
-			
-	</div> -->
 
 	<div class="flex column-mobile">
 		<div class="w-50-ns mr3-ns">
@@ -87,11 +50,8 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 					<h4 class="main-font f2 mb2 pr5-ns">Ingrese su código postal para calcular el precio envío</h4>
 					<input type="text" class="input-text black w-100 pa3 bg-main-light" name="temporary_postcode" id="temporary_postcode" placeholder="Ingrese su código postal aquí..." value="" autocomplete="postal-code" maxlength="4">
 				</div>
-				<?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
-
-				<?php wc_cart_totals_shipping_html(); ?>
-
-				<?php do_action( 'woocommerce_review_order_after_shipping' ); ?>
+				<div class="checkout-review-shipping-table"></div>
+				
 			</div>
 			<?php endif; ?>
 
@@ -113,6 +73,8 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 		
 		<h3 class="main-font" id="order_review_heading"><?php esc_html_e( 'Your order', 'woocommerce' ); ?></h3>
+
+	
 		
 		<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 
@@ -367,6 +329,19 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		width: 100% !important;
     max-width: 100% !important;
 	}
+
+	p#billing_address_1_field, p#billing_address_2_field, p#billing_city_field, p#billing_state_field, p#billing_postcode_field, p#billing_phone_field, p#shipping_address_1_field, p#shipping_address_2_field, p#shipping_city_field, p#shipping_state_field, p#shipping_postcode_field, p#shipping_phone_field, #billing_email_field {
+    flex: 1;
+    max-width: 100% !important;
+}
+
+
+p#billing_address_2_field input, p#shipping_address_2_field input {
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+
 	}
 
 </style>

@@ -32,12 +32,10 @@ jQuery(document).ready(function ($) {
                         $('#billing_state + .select2').remove();                
                         $('#billing_city').replaceWith('<select name="billing_city" id="billing_city" class="city_select">' + localidades + '</select>');
                         $('#billing_postcode').val(postcode);
+						$(document.body).trigger("update_checkout");
                     } else {
                         console.log('ERROR');
                     }
-                    
-
-                    
                 }
             })
         }
