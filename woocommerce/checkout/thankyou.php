@@ -41,10 +41,10 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php else : ?>
 
-			<section  bg-color="white">
-			<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+			<section class="flex flex-column mt4 justify-center tc container list-none" bg-color="white">
+			<h1 class="f1 mb3 woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
 
-			<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
+			<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details list-none">
 
 				<li class="woocommerce-order-overview__order order">
 					<?php esc_html_e( 'Order number:', 'woocommerce' ); ?>
@@ -69,7 +69,7 @@ defined( 'ABSPATH' ) || exit;
 				</li>
 
 				<?php if ( $order->get_payment_method_title() ) : ?>
-					<li class="woocommerce-order-overview__payment-method method">
+					<li class="woocommerce-order-overview__payment-method method mb4">
 						<?php esc_html_e( 'Payment method:', 'woocommerce' ); ?>
 						<strong><?php echo wp_kses_post( $order->get_payment_method_title() ); ?></strong>
 					</li>
@@ -91,3 +91,21 @@ defined( 'ABSPATH' ) || exit;
 	<?php endif; ?>
 	</section>
 </div>
+
+
+<style>
+	.woocommerce-order-details {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin-bottom: 40px;s
+	}
+
+	.woocommerce-table--order-details {
+		margin: auto;
+	}
+
+	.woocommerce-customer-details {
+		margin-bottom: 60px;
+	}
+</style>

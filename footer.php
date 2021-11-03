@@ -20,16 +20,24 @@
 	</div>	 -->
 
 		<div class="relative z-2">
-			<h1	class="black tc center measure mt5 mb6 f2">Tenes dudas? Mandanos un correo y una persona de nuestro equipo con gusto contestará tus preguntas.</h1>
+			<h1	class="black tc center measure mt5 mb6 f2">Explorá nuestra sección de <span><a href="/faq" class="black ">preguntas frecuentes</a></span> o <span><a href="/contacto" class="black ">mandanos un mail</a></span> si tenes alguna consulta.</h1>
 
-			<div class="flex items-start">
+			<div class="flex items-start column-mobile">
 					<?php get_template_part('template-parts/subscribe', get_post_type()); ?>
 
-			<div class="tr w-20-ns">
-				<p class="black">+54 11 4815-3515</p>
-				<p class="black">Mt. de Alverar 1799</p>
-				<p class="black">CABA / Argentina</p>
+			<div class="w-20-ns tr">
+				<div class=" mb3">
+					<!-- <p class="black">+54 11 4815-3515</p>
+					<p class="black">Mt. de Alverar 1799</p>
+					<p class="black">CABA / Argentina</p> -->
+				</div>
+
+				<a href="https://instagram.com/noddenhus" target="_blank" class="ml-auto mr0 db">
+						<?php get_template_part('template-parts/content/insta'); ?>
+				</a>
+			
 			</div>
+		
 
 			</div>
 			<div class="mt6 flex justify-between items-stretch">
